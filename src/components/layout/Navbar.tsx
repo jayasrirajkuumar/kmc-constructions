@@ -7,6 +7,18 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -84,8 +96,8 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden absolute top-full left-0 w-full bg-sage-900 border-t border-white/5 transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? 'max-h-screen py-6' : 'max-h-0 py-0'}`}>
-        <div className="flex flex-col space-y-6 px-6">
+      <div className={`md:hidden absolute top-full left-0 w-full bg-sage-900 border-t border-white/5 transition-all duration-300 overflow-y-auto overflow-x-hidden ${isMobileMenuOpen ? 'max-h-[calc(100vh-80px)] py-6' : 'max-h-0 py-0'}`}>
+        <div className="flex flex-col space-y-6 px-6 pb-20">
           {navLinks.map((link) => (
             <a 
               key={link.name} 
