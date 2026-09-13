@@ -11,11 +11,13 @@ import Testimonials from './components/sections/Testimonials';
 import Contact from './components/sections/Contact';
 import Footer from './components/layout/Footer';
 import MobileActionBar from './components/layout/MobileActionBar';
+import LeadPopup from './components/layout/LeadPopup';
 
 function App() {
   return (
     <div className="min-h-screen bg-sage-900 selection:bg-gold-500/30 selection:text-gold-200 text-ivory-100 font-sans antialiased overflow-x-hidden">
       <Navbar />
+      <LeadPopup />
       <main>
         <Hero />
         <div className="bg-sage-900 border-y border-white/5 py-8 text-center overflow-hidden relative">

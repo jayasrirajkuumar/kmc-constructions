@@ -47,8 +47,29 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-ivory-200/40 uppercase tracking-widest">
+        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-ivory-200/40 uppercase tracking-widest gap-4">
           <p>© {currentYear} KMC Builders and Enterprises. All Rights Reserved.</p>
+          <button 
+            onClick={() => {
+              const leads = JSON.parse(localStorage.getItem('kmc_leads') || '[]');
+              if (leads.length === 0) {
+                alert('No leads collected yet.');
+                return;
+              }
+              const header = 'Date,Name,Phone\n';
+              const csv = leads.map((l: any) => `${l.date},"${l.name}","${l.phone}"`).join('\n');
+              const blob = new Blob([header + csv], { type: 'text/csv' });
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'kmc_client_leads.csv';
+              a.click();
+            }}
+            className="hover:text-gold-400 transition-colors"
+            title="Download Client Leads (Admin)"
+          >
+            Admin Access
+          </button>
         </div>
       </div>
     </footer>
